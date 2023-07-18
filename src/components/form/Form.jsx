@@ -17,7 +17,7 @@ export const ContactForm = () => {
     };
 
     try {
-      const response = await axios.post('https://api.mockapi.io/contacts', newContact);
+      const response = await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
       dispatch(addContact(response.data));
     } catch (error) {
       console.log(error);

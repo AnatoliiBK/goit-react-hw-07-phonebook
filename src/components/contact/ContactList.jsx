@@ -22,7 +22,7 @@ export const ContactList = () => {
 
   const handleChange = async (contactId) => {
     try {
-      await axios.delete(`https://api.mockapi.io/contacts/${contactId}`);
+      await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
       dispatch(deleteContact(contactId));
     } catch (error) {
       console.log(error);
