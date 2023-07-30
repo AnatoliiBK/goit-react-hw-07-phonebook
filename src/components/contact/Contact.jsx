@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'components/redux/contactsSlice';
 import { nameStyle, name, btnDelStyle } from 'components/styles';
@@ -6,8 +7,13 @@ import { nameStyle, name, btnDelStyle } from 'components/styles';
 export const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteContact(contact.id));
+  const handleDelete = async () => {
+    try {      
+      await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contact.id}`);     
+      dispatch(deleteContact(contact.id));
+    } catch (error) {
+      console.error("Помилка", error);
+    }
   };
 
   return (
@@ -23,6 +29,7 @@ export const ContactItem = ({ contact }) => {
 
 ContactItem.propTypes = {
   contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
   }).isRequired,
