@@ -52,19 +52,34 @@ export const addContact = createAsyncThunk(
 
 
 
+// export const deleteContact = createAsyncThunk(
+//   'contacts/deleteContact',
+//   async (contactId) => {
+    
+//     await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
+//     console.log(contactId)
+//     const deletedContacts = JSON.parse(localStorage.getItem('deletedContacts')) || [];
+//     localStorage.setItem('deletedContacts', JSON.stringify([...deletedContacts, contactId]));
+    
+//     return contactId;
+//   }
+// );
+
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (contactId) => {
-    
-    await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
-    
-    const deletedContacts = JSON.parse(localStorage.getItem('deletedContacts')) || [];
-    localStorage.setItem('deletedContacts', JSON.stringify([...deletedContacts, contactId]));
-    
-    return contactId;
+  
+  async (contactId, thunkAPI) => {
+    try {
+      const response = await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
+      console.log(response.data)
+      return response.data;
+      
+    } catch (e) {
+      console.log("помилка")
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
 );
-
 
 const initialState = Object.freeze({
   contacts: {

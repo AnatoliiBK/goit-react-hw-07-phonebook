@@ -11,6 +11,7 @@ export const ContactItem = ({ contact }) => {
     try {      
       await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contact.id}`);     
       dispatch(deleteContact(contact.id));
+      console.log("ВИДАЛЕННЯ", contact, contact.id )
     } catch (error) {
       console.error("Помилка", error);
     }
