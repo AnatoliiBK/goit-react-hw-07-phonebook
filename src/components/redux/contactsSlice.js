@@ -8,7 +8,7 @@ export const fetchContacts = createAsyncThunk(
     if (state.contacts.items.length > 0) {
       state.contacts.items = [];
     }
-    await syncDeletedContacts();
+    
     const response = await axios.get('https://64b3a5a00efb99d862683852.mockapi.io/contacts');
     const fetchedContacts = response.data;
 
@@ -42,37 +42,19 @@ export const addContact = createAsyncThunk(
     const response = await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
     return response.data;
     
-    // await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
-
-    // const updatedResponse = await axios.get('https://64b3a5a00efb99d862683852.mockapi.io/contacts');
-    // return updatedResponse.data;
   }
 );
 
-
-const syncDeletedContacts = async () => {
-  
-  const deletedContacts = JSON.parse(localStorage.getItem('deletedContacts')) || [];
-  
-  if (deletedContacts.length > 0) {
-    for (const contactId of deletedContacts) {
-      await deleteContact(contactId);
-    }
-    
-    localStorage.setItem('deletedContacts', JSON.stringify([]));
-  }
-};
-
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (contactId) => {
-    
-    await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
-    
-    const deletedContacts = JSON.parse(localStorage.getItem('deletedContacts')) || [];
-    localStorage.setItem('deletedContacts', JSON.stringify([...deletedContacts, contactId]));
-    
-    return contactId;
+  
+  async (contactId, thunkAPI) => {
+    try {
+      const response = await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   }
 );
 
