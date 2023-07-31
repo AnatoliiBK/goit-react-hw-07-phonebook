@@ -5,13 +5,13 @@ export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, { getState, dispatch }) => {
     const state = getState();
-    if (state.contacts.items.length > 0) {
-      state.contacts.items = [];
-    }
-    
+    // if (state.contacts.items.length > 0) {
+    //   state.contacts.items = [];
+    // }
+    console.log("REL", getState())
     const response = await axios.get('https://64b3a5a00efb99d862683852.mockapi.io/contacts');
     const fetchedContacts = response.data;
-
+console.log("FETCH", fetchedContacts)
     const uniqueContacts = fetchedContacts.reduce((acc, contact) => {
       const existingContact = acc.find((c) => c.number === contact.number);
       if (!existingContact) {
@@ -20,7 +20,7 @@ export const fetchContacts = createAsyncThunk(
       return acc;
     }, []);
 
-    dispatch(fetchContacts.fulfilled(uniqueContacts));
+    // dispatch(fetchContacts.fulfilled(uniqueContacts));
 
     return uniqueContacts;
   }
@@ -38,9 +38,11 @@ export const addContact = createAsyncThunk(
       alert(`Contact with phone number ${newContact.number} already exists.`);
       throw new Error(`Contact with phone number ${newContact.number} already exists.`);
     }
-
     const response = await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
+    console.log("ADD", response.data)
     return response.data;
+    // const response = await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
+    // return response.data;
     
     // await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
 
@@ -71,8 +73,8 @@ export const deleteContact = createAsyncThunk(
   async (contactId, thunkAPI) => {
     try {
       const response = await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
-      console.log(response.data)
-      return response.data;
+      console.log("DELL", response.data.id, contactId);
+      return response.data.id;
       
     } catch (e) {
       console.log("помилка")

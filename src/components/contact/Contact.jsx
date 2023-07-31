@@ -9,7 +9,7 @@ export const ContactItem = ({ contact }) => {
 
   const handleDelete = async () => {
     try {      
-      await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contact.id}`);     
+      await axios.get(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contact.id}`);     
       dispatch(deleteContact(contact.id));
       console.log("ВИДАЛЕННЯ", contact, contact.id )
     } catch (error) {

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchContacts, deleteContact } from "../redux/contactsSlice"
 import { Filter } from "components/Filter";
 import { ContactItem } from "./Contact";
-import axios from 'axios';
+// import axios from 'axios';
 import { listStyle, list } from "components/styles";
 
 export const ContactList = () => {
@@ -22,7 +22,7 @@ export const ContactList = () => {
 
   const handleChange = async (contactId) => {
     try {
-      await axios.delete(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
+      // await axios.get(`https://64b3a5a00efb99d862683852.mockapi.io/contacts/${contactId}`);
       dispatch(deleteContact(contactId));
     } catch (error) {
       console.log(error);
