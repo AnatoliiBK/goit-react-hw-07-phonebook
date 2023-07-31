@@ -7,9 +7,10 @@ import { ContactItem } from "./Contact";
 import { listStyle, list } from "components/styles";
 
 export const ContactList = () => {
+  
   const contacts = useSelector((state) => state.contacts.items);
   const filter = useSelector((state) => state.filter);
-  // const isLoading = useSelector((state) => state.contacts.isLoading);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {

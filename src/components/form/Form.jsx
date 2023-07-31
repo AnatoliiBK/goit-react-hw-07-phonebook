@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../redux/contactsSlice';
-import axios from 'axios';
 import { formStyle, labelStyle, inputStyle, buttonStyle } from 'components/styles';
 
 export const ContactForm = () => {
@@ -17,8 +16,8 @@ export const ContactForm = () => {
     };
 
     try {
-      const response = await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
-      dispatch(addContact(response.data));
+      // const response = await axios.post('https://64b3a5a00efb99d862683852.mockapi.io/contacts', newContact);
+      dispatch(addContact(newContact));
     } catch (error) {
       console.log(error);
     }
