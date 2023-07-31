@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, { getState, dispatch }) => {
-    const state = getState();
+    // const state = getState();
     // if (state.contacts.items.length > 0) {
     //   state.contacts.items = [];
     // }
